@@ -1,7 +1,8 @@
 {
   "name": "uv-script",
   "displayName": "uv-script",
-  "description": "",
+  "description": "VSCode extension for more easily using script Python environments from PEP 723 inline script metadata.",
+  "author": {"name": "Hugo Lundin Münch", "email": "hugo@lundin.dev"},
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.101.0"
@@ -9,13 +10,15 @@
   "categories": [
     "Other"
   ],
+  "repository": {"type": "git", "url": "https://github.com/hugolundin/uv-script.git"},
+  "publisher": "hugolundin",
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "uv-script.useEnvironment",
-        "title": "Use Script Environment"
+        "title": "uv-script: Use environment"
       }
     ]
   },
@@ -31,17 +34,18 @@
     "ms-python.python"
   ],
   "devDependencies": {
-    "@types/vscode": "^1.101.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
+    "@types/vscode": "^1.101.0",
     "@typescript-eslint/eslint-plugin": "^8.31.1",
     "@typescript-eslint/parser": "^8.31.1",
-    "eslint": "^9.25.1",
-    "typescript": "^5.8.3",
     "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.5.2"
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.25.1",
+    "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@vscode/python-extension": "1.0.5"
+    "@vscode/python-extension": "1.0.5",
+    "vsce": "^2.15.0"
   }
 }

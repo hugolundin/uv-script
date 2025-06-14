@@ -78,7 +78,7 @@ export async function activate(context: vscode.ExtensionContext) {
 			// Validate that the provided interpreter path leads to a valid python environment.
 			const pythonEnvProperties = await pythonApi.environments.resolveEnvironment(interpreterPath);
 			if (!pythonEnvProperties) {
-				vscode.window.showErrorMessage('Script interpreter path is not valid');
+				vscode.window.showErrorMessage('Script interpreter path is not valid.');
 				return;
 			}
 			
@@ -91,7 +91,7 @@ export async function activate(context: vscode.ExtensionContext) {
 			return;
 		}
 
-		vscode.window.showInformationMessage("Script environment has been configured.");
+		vscode.window.showInformationMessage("Environment has been selected.");
 	});
 
 	context.subscriptions.push(useEnvironment);
