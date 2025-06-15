@@ -7,10 +7,14 @@ import { PythonExtension } from '@vscode/python-extension';
 const shellCommand = (cmd: string) =>
     new Promise<string>((resolve, reject) => {
         exec(cmd, (err, stdout) => {
+			console.log(cmd);
+
             if (err) {
+				console.log(err);
                 return reject(err);
             }
 
+			console.log(stdout);
             return resolve(stdout);
         });
     });
