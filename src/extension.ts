@@ -28,10 +28,10 @@ export async function activate(context: vscode.ExtensionContext) {
 	 * Use script environment. 
 	 * 
 	 * Given that the current file has valid inline script metadata (PEP 723),
-	 * ask uv to sync script dependencies and thereafter set the selected 
-	 * Python interpreter to the script environment. 
+	 * ask uv to sync script dependencies and thereafter add its
+	 * interpreter to the Python extension.
 	 */
-	const useEnvironment = vscode.commands.registerCommand('uv-script.useEnvironment', async () => {
+	const findEnvironment = vscode.commands.registerCommand('uv-script.findEnvironment', async () => {
 		// Get the file path for the active text editor.
 		const activeFilePath = vscode.window.activeTextEditor?.document.fileName;
 		if (!activeFilePath) {
@@ -103,10 +103,10 @@ export async function activate(context: vscode.ExtensionContext) {
 			return;
 		}
 
-		vscode.window.showInformationMessage("Using interpreter from '" + activeFileName + "' environment.");
+		vscode.window.showInformationMessage("Found environment for '" + activeFileName + "'.");
 	});
 
-	context.subscriptions.push(useEnvironment);
+	context.subscriptions.push(findEnvironment);
 }
 
 // This method is called when your extension is deactivated

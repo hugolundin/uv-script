@@ -17,8 +17,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "uv-script.useEnvironment",
-        "title": "uv-script: Use environment"
+        "command": "uv-script.findEnvironment",
+        "title": "uv-script: Scan for Inline Script Metadata Environment"
       }
     ]
   },
