@@ -47,6 +47,11 @@ export async function activate(context: vscode.ExtensionContext) {
 		} catch (error: any) {
 			const syncError: ExecException = error;
 
+			if (syncError.message.includes("to read") && syncError.message.includes("not found")) {
+				vscode.window.showErrorMessage("'" + activeFileName + "' must be saved before a script environment can be initialized.");
+				return;
+			}
+
 			if (syncError.message.includes("does not contain a PEP 723 metadata tag")) {
 				await vscode.window.showErrorMessage(
 					"Script does not contain a PEP 723 metadata tag.",
@@ -69,7 +74,7 @@ export async function activate(context: vscode.ExtensionContext) {
 					}
 				});
 			} else {
-				vscode.window.showErrorMessage("Unknown error: " + syncError.message);
+				vscode.window.showErrorMessage(syncError.message);
 				return;
 			}
 		}
