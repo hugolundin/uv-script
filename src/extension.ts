@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 
 import { exec, ExecException } from 'child_process';
 import { PythonExtension } from '@vscode/python-extension';
+import path from 'path';
 
 
 const shellCommand = (cmd: string) =>
@@ -31,13 +32,14 @@ export async function activate(context: vscode.ExtensionContext) {
 	 * Python interpreter to the script environment. 
 	 */
 	const useEnvironment = vscode.commands.registerCommand('uv-script.useEnvironment', async () => {
-
 		// Get the file path for the active text editor.
 		const activeFilePath = vscode.window.activeTextEditor?.document.fileName;
 		if (!activeFilePath) {
 			vscode.window.showWarningMessage("No script is open.");
 			return;
 		}
+
+		const activeFileName = path.basename(activeFilePath);
 
 		// Sync script dependencies.
 		try {
@@ -54,6 +56,7 @@ export async function activate(context: vscode.ExtensionContext) {
 						case 'Fix':
 							try {
 								await shellCommand('uv init --script ' + activeFilePath);
+								await shellCommand('uv sync --script ' + activeFilePath);
 							} catch (error: any) {
 								const initError: ExecException = error;
 								vscode.window.showErrorMessage("Failed to initialize script: " + initError.message);
@@ -68,7 +71,7 @@ export async function activate(context: vscode.ExtensionContext) {
 			} else {
 				vscode.window.showErrorMessage("Unknown error: " + syncError.message);
 				return;
-			}		
+			}
 		}
 
 		// Find and set interpreter path.
@@ -95,7 +98,7 @@ export async function activate(context: vscode.ExtensionContext) {
 			return;
 		}
 
-		vscode.window.showInformationMessage("Environment has been selected.");
+		vscode.window.showInformationMessage("Using interpreter from '" + activeFileName + "' environment.");
 	});
 
 	context.subscriptions.push(useEnvironment);
